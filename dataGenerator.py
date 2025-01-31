@@ -39,7 +39,6 @@ def generate_dataset(
             draw = ImageDraw.Draw(img)
             
             # Determine bounding box size based on size label
-            # (These are rough heuristics; feel free to adjust)
             if size_label == "small":
                 shape_size = 16
             elif size_label == "medium":
@@ -60,9 +59,7 @@ def generate_dataset(
             elif shape == "rectangle":
                 draw.rectangle([left, top, right, bottom], fill=color, outline=color)
             else:  # "triangle"
-                # Coordinates of an isosceles triangle centered in the image
                 x_center = w // 2
-                # top vertex, bottom-left, bottom-right
                 triangle_coords = [
                     (x_center, top),
                     (left, bottom),
@@ -70,8 +67,6 @@ def generate_dataset(
                 ]
                 draw.polygon(triangle_coords, fill=color, outline=color)
             
-            # Construct text description
-            # Example: "a small red circle" or "a large blue triangle"
             text_description = f"a {size_label} {color} {shape}"
             
             # Save image
@@ -79,7 +74,6 @@ def generate_dataset(
             image_path = os.path.join(output_dir, image_filename)
             img.save(image_path)
             
-            # Write row to CSV: [relative_path, text_description]
             writer.writerow([image_filename, text_description])
     
     print(f"Dataset generation complete! {num_samples} images saved to '{output_dir}'.")
