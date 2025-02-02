@@ -240,5 +240,8 @@ if __name__ == "__main__":
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Using device: {device}")
     train_vae(data_loader, vae_model, optimizer, device=device, epochs=EPOCHS, log_interval=10)
+
+    torch.save(vae_model.state_dict(), "vae.pth")
+    print("VAE saved as 'vae.pth'.")
     
     print("Training complete! You can now use vae_model.encode(...) and vae_model.decode(...) for latent representations.")

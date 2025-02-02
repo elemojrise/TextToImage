@@ -274,8 +274,18 @@ if __name__ == "__main__":
         dataloader=dataloader,
         optimizer=optimizer,
         device=device,
-        epochs=10  # Increase if you want better convergence
+        epochs=20  # Increase if you want better convergence
     )
+
+    # 5) SAVE the text encoder
+    torch.save(model.state_dict(), "text_encoder.pth")
+    print("Text encoder saved as 'text_encoder.pth'.")
+
+    # 6) (Optional) Save the word2idx if needed
+    import pickle
+    with open("word2idx.pkl", "wb") as f:
+        pickle.dump(word2idx, f)
+    print("Vocabulary (word2idx) saved as 'word2idx.pkl'.")
     
     # 6. Usage: encode some text
     sample_text = "a large blue circle"
